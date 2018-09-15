@@ -1,0 +1,32 @@
+/*image properties that round corers, set the size, cener it, give it top and bottom margins*/
+img{
+    width:100px;
+    height:100px;
+    border-radius:10%;
+ 
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+/*left align h1, makke it blue, apply a dotted border along the bottom, have .5em of space from the top of the page, 
+6em from the left, 2em from the right, and add 4px of padding between the bottom of the heading and the border*/
+h1{
+    padding-top: .5em;
+    text-align: left;
+    color: #4eadd8;
+    font-size: 3em;
+    margin-left: 6em;
+    margin-right: 2em;
+    padding-bottom: 4px;
+    border-bottom: 2px dotted #8DA4AD;
+}
+
+h2 {
+}
+p {
+}
+a{}
+
+#worklinks{}
+#projects{}
+#excerices{}
