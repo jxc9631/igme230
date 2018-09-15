@@ -1,32 +1,82 @@
-/*image properties that round corers, set the size, cener it, give it top and bottom margins*/
+
+/*set background color in body*/
+body{
+    background:rgba(245, 191, 232,0.2);
+  
+   
+
+}/* 1.set height of img 2. make round corner of image 3.rotate it to horizontal 4. make it be in center*/
 img{
-    width:100px;
-    height:100px;
-    border-radius:10%;
- 
-    margin-top:5%;
-    margin-bottom:5%;
+    height:150px;
+    border-radius:20%;
+    transform: rotate(90deg);  
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+   
+
 }
 
-/*left align h1, makke it blue, apply a dotted border along the bottom, have .5em of space from the top of the page, 
-6em from the left, 2em from the right, and add 4px of padding between the bottom of the heading and the border*/
+
+/*1. padding top 2. let text to the center 3. set color and size of text 3. make left and right
+boder.4. fill color and stroke width of border5.set backgroung color */
 h1{
+    padding-top:20px;
+    color: #361a20;
+    font-size: 3em;
+    margin-left: 4em;
+    margin-right: 4em;
+    padding-bottom: 20px;
+    border: 2px solid gray;
+    border-radius:30%;
+    text-align: center;
+    background: rgba(111, 191, 232,0.2);
+}
+/* make distance to the top, left , right,bottom place  2. left text-align3. make border of bottom's style*/
+h2 {
     padding-top: .5em;
     text-align: left;
-    color: #4eadd8;
-    font-size: 3em;
-    margin-left: 6em;
+    color: #4b555a;
+    font-size: 1em;
+    margin-left: 4em;
     margin-right: 2em;
     padding-bottom: 4px;
     border-bottom: 2px dotted #8DA4AD;
 }
-
-h2 {
-}
+/*make distance to the top, left , right,bottom place  2. left text-align3. make border of bottom's style*/
 p {
+    padding-top: .5em;
+    text-align: left;
+    color: #4b555a;
+    font-size: 1em;
+    margin-left: 4em;
+    margin-right: 2em;
+    padding-bottom: 4px;
+   
+}/* make padding size 2. adjust the left and right distance 3. wirte style of border*/
+#worklinks{
+    padding-top: .5em;
+    padding-bottom:1em;
+    margin-left: 2.5em;
+    margin-right: 2em;
+    font-size: 1.25em;
+    border: 2px dotted;
+    border-radius:5%;
+    background: rgba(111, 191, 232,0.2);
 }
-a{}
-
-#worklinks{}
-#projects{}
-#excerices{}
+/*set margin ,remove list style and set space between lines*/
+#projects li {
+    margin-left: .5em;
+    margin-right: 2em;
+    list-style-type: none;
+    line-height:1.5;
+  
+}
+/*set margin ,remove list style and set space between lines*/
+#excerices li{
+    margin-left: .5em;
+    margin-right: 2em;
+    list-style-type: none;
+    line-height:1.5;
+}
