@@ -232,3 +232,9 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 	justify-content: space-around;
 	margin: 40px auto;
 }
+
+aside {
+  background-color: #e5e5e5;
+  padding: 15px;
+  margin-top: 7px;
+}
