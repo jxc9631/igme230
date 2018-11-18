@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>JQuery Start</title>
+    <style>
+        #panel1,
+        #panel2 {
+            background-color: blue;
+            height: 200px;
+            width: 200px;
+            margin-bottom: 30px;
+        }
+
+        #panel2 {
+            background-color: rgb(241, 15, 15);
+        }
+    </style>
+</head>
+
+<body>
+    <button id="show">show</button><button id="hide">hide</button>
+
+    <div id="panel1"> I have text here.
+    </div>
+
+    <div id="panel2">There's more text here</div>
+
+    <script>
+        /* basic hide/show function from w3schools jquery tutorial */
+        $("#hide").click(function() {
+            $("#panel1").hide();
+        });
+        $("#show").click(function() {
+            $("#panel1").show();
+        });
+    </script>
+</body>
+
+</html>
