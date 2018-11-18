@@ -29,7 +29,7 @@ img{margin:0; padding:0; border:none; line-height:normal; vertical-align:middle;
 
 /*----------------------------------------------HTML 5 Overrides-------------------------------------*/
 
-address, article, aside, figcaption, figure, footer, header, nav, section{display:block; margin:0; padding:0;}
+address, article,figcaption, figure, footer, header, nav, section{display:block; margin:0; padding:0;}
 
 q{display:block; padding:0 10px 8px 10px; color:#979797; background-color:#ECECEC; font-style:italic; line-height:normal;}
 q:before{content:'� '; font-size:26px;}
@@ -191,7 +191,7 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 #container #homepage #intro article{}
 #container #homepage #intro article figure{}
 #container #homepage #intro article figure img{float:right; margin:0 0 10px 0; padding:4px; border:1px solid #D6D6D6;}
-#container #homepage #intro article figure figcaption{float:left; width:460px;}
+#container #homepage #intro article figure figcaption{float:left; width:480px;}
 #container #homepage #intro article figure h2{}
 #container #homepage #intro article figure footer{}
 
@@ -208,11 +208,18 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 
 #copyright{padding:20px 0;}
 #copyright p{margin:0; padding: 0;}
+#box{
+  margin:auto;
+  display: table;
 
+}
 #contact
 {
-  margin-left:40%;
-  margin-right:40%;
+ background-color: #e5e5e5;
+  padding: 100px;
+  margin-top: 7px;
+  float:right;
+  
 }
 
 #pic{
@@ -230,11 +237,9 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
   display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	margin: 40px auto;
-}
+  margin:  auto;
+  float:left;
+  overflow: auto;
 
-aside {
-  background-color: #e5e5e5;
-  padding: 15px;
-  margin-top: 7px;
+ 
 }
