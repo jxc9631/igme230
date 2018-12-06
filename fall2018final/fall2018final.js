@@ -1,5 +1,5 @@
 'use strict';
-let verseChoose = document.querySelector('form'); // the select menu
+let verseChoose = document.querySelector("form"); // the select menu
  let display =  document.querySelector("article"); // the space for the verse to display
 let verse = "article0.txt" ; // the chosen verse; initialize with first menu option
 
