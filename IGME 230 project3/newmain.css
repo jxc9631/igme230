@@ -1,0 +1,133 @@
+/*********************************
+General Formatting (Do Not Change)
+*********************************/
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    /* sets base font size for rem sizing */
+    font-size: 16px;
+    font-family: Calibri, Helvetica, Arial, sans-serif;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+header,
+footer {
+    background-color: #86af49;
+}
+
+nav,
+aside,
+.game {
+    padding: .5rem;
+}
+
+nav, aside {
+    background-color: #b5e7a0;
+}
+
+
+/**************
+Your Formatting
+***************/
+@media screen and (min-width:1280px) {
+    #wrapper {
+        display: grid;
+        grid-template-rows: 4rem 800px 3rem;
+        grid-template-columns:100px 2fr 100px;
+        max-width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    header {
+        grid-column: 1/4;
+        grid-row: 1/2;
+        text-align: center;
+    }
+
+    footer {
+        grid-column: 1/4;
+        grid-row: 3/4;
+        text-align: center;
+    }
+
+    aside {
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+
+    nav {
+        grid-column: 3/4;
+        grid-row: 2/3;
+    }
+
+    #game {
+        width: 100%;
+        height: 100%;
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+
+    .menuitem {
+        background-color: white;
+    }
+
+    .submenu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0.25rem;
+        background-color: lightgray;
+
+    }
+}
+
+
+@media screen and (max-width:1279px){
+    #wrapper {
+        display: grid;
+        grid-template-rows: 6fr;
+        grid-template-columns:1fr;
+       
+    }
+    header{
+        grid-column: 1/1;
+        grid-row:1/2;
+        text-align: center;
+    }
+    footer{
+        grid-column:1/1;
+        grid-row:4/5;
+        text-align: center;
+    }
+    aside{
+        grid-column:1/1;
+        grid-row:3/4;
+    }
+    nav{
+        grid-column:1/1;
+        grid-row:2/3;
+    }
+    #game{
+        grid-column:1/1;
+        grid-row:5/6;    
+    }
+    .menuitem{
+        background-color: white;
+    }
+    .submenu{
+        list-style-type: none;
+        margin:0;
+        padding:0.25rem;
+        background-color: lightgray;   
+    }
+
+}

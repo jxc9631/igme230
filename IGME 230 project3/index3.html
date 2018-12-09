@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div class = "start">
+                <input type="button" onClick="window.location.reload()" value="Restart The Game"></div>
+<script src="pixi.min.js"></script>
+<script>
+
+//create a pixi application
+let app = new PIXI.Application({
+    width:1280,
+    height:800,
+    antialiasing:true,
+    transparent:false,
+    resolution: 1
+});
+// create the root of the scene graph
+//var stage = new PIXI.Container();
+// add the canvas 
+document.body.appendChild(app.view);
+//loader
+PIXI.loader
+    .add([
+        "images/cat.png",
+        "images/pie.png",
+        
+    ])
+    .on("progress", loadProgressHandler)
+    .load(setup);
+
+//setup event
+function loadProgressHandler(loader, resource) {
+
+    //Display the file `url` currently being loaded
+    console.log("loading: " + resource.url);
+
+    //Display the percentage of files currently loaded
+    console.log("progress: " + loader.progress + "%");
+}
+
+let pie;
+let niddle;
+var niddleNumber = 1;
+let shoot = false;
+var shootNumber = 10;
+var message;
+let goDown = true;
+let point = 0;
+ 
+function setup() {
+    //set niddle size and location and draw on canvas
+    niddle = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+    niddle.y = 800/2;
+    niddle.x = 1280/2*1.5;
+    niddle.anchor.x=0.5;
+    niddle.anchor.y=0.5;
+    app.stage.addChild(niddle);
+
+    //set pie size and location and draw on canvas
+    pie = new PIXI.Sprite(PIXI.loader.resources["images/pie.png"].texture);
+    pie.y = 700;
+    pie.x = 1280/2/2;
+    pie.scale.x = 0.3;
+    pie.scale.y = 0.3;
+    app.stage.addChild(pie);    
+    pie.anchor.x=0.5;   //set anchor point for futher rotation function
+    pie.anchor.y=0.5;
+
+    //creatLifeBar();
+    //capture the keyboard
+
+    let up = keyboard(13);
+    up.press = () => {
+       if(niddle.y == 800/2 && niddle.x == 1280/2*1.5){
+            shoot = true;
+       }
+    }
+    //background
+    this.drawBackground = function(){
+		var background = new PIXI.Sprite(
+		PIXI.loader.resources["./image/bg.png"].texture
+		);
+		background.x = 0;
+		background.y = 0;
+		background.width = 500;
+		background.height = 500;
+		window.stage.addChild(background); 
+		window.renderer.render(window.stage);
+	}
+ 
+ //   state = play;
+    //loop the animation
+    app.ticker.add(delta => pieRotation(delta));
+
+    message = new PIXI.Text("life：" + shootNumber);
+    message.style = {fill: "white", font: "16px PetMe64"};
+    app.stage.addChild(message);    
+    
+
+    console.log("All files loaded");
+
+ };
+
+//keyboard function
+
+function pieRotation(delta){
+    // state(delta);
+   
+    if(700 <= pie.y ){
+        goDown = true;
+    }  
+    if(pie.y <= 100){
+     goDown = false;        
+    }
+    if (goDown == true){
+        pie.y --;
+    }else{
+        pie.y ++;
+    }
+    //collision test
+    if (hitTestRectangle(pie, niddle)) {
+        point ++
+        niddle.x = 1280/2*1.5;
+        shoot = false;
+        } else {
+        
+        //if there's no collision
+        message.text = "miss...";
+       
+    }
+
+    //message.text = "life left" + shootNumber;
+    shooting();
+    
+}
+
+function shooting(){
+   if(shootNumber >= 0) {
+         pie.alpha = 1;
+        niddle.alpha = 1;
+       if(shoot == true && shootNumber >= 1){
+        niddle.x -= 10;
+    }
+        if(niddle.x <= 100){
+            niddle.x = 1280/2*1.5 //need to add cholision DONE
+            shoot = false;
+            shootNumber -= 1 //
+    }
+    message.text = "Press Enter to Shoot!   life:"+shootNumber+"      point:"+point;
+    }
+    if(shootNumber <= 0) {
+        message.text = "press Enter key to restart";
+        let up = keyboard(13);
+        pie.alpha = 0.5;
+        niddle.alpha = 0.5;
+        up.press = () => {
+        shootNumber = 10;
+       }
+    }
+}
+
+/*function creatLifeBar(){
+    var life1 = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+    life1.x = 100;
+    life1.y = 0;
+    life1.width = 50;
+    life1.height = 50;
+    app.stage.addChild(life1);  
+
+    var life2 = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+    life2.x = life1.x+50;
+    life2.y = 0;
+    life2.width = 50;
+    life2.height = 50;
+    app.stage.addChild(life2);  
+
+    var life3 = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+    life3.x = life2.x+50;
+    life3.y = 0;
+    life3.width = 50;
+    life3.height = 50;
+    app.stage.addChild(life3);  
+
+    var life4 = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+    life4.x = life3.x+50;
+    life4.y = 0;
+    life4.width = 50;
+    life4.height = 50;
+    app.stage.addChild(life4);  
+}*/
+
+//
+function hitTestRectangle(r1, r2) {
+
+    //Define the variables we'll need to calculate
+    let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+
+    //hit will determine whether there's a collision
+    hit = false;
+
+    //Find the center points of each sprite
+    r1.centerX = r1.x + r1.width / 2;
+    r1.centerY = r1.y + r1.height / 2;
+    r2.centerX = r2.x + r2.width / 2;
+    r2.centerY = r2.y + r2.height / 2;
+
+    //Find the half-widths and half-heights of each sprite
+    r1.halfWidth = r1.width / 2;
+    r1.halfHeight = r1.height / 2;
+    r2.halfWidth = r2.width / 2;
+    r2.halfHeight = r2.height / 2;
+
+    //Calculate the distance vector between the sprites
+    vx = r1.centerX - r2.centerX;
+    vy = r1.centerY - r2.centerY;
+
+    //Figure out the combined half-widths and half-heights
+    combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+    combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+
+    //Check for a collision on the x axis
+    if (Math.abs(vx) < combinedHalfWidths) {
+
+    //A collision might be occuring. Check for a collision on the y axis
+    if (Math.abs(vy) < combinedHalfHeights) {
+
+        //There's definitely a collision happening
+        hit = true;
+    } else {
+
+        //There's no collision on the y axis
+        hit = false;
+    }
+    } else {
+
+    //There's no collision on the x axis
+    hit = false;
+    }
+
+    //`hit` will be either `true` or `false`
+    return hit;
+};
+
+
+// keyboard function 
+
+function keyboard(keyCode) {
+    let key = {};
+    key.code = keyCode;
+    key.isDown = false;
+    key.isUp = true;
+    key.press = undefined;
+    key.release = undefined;
+    //The `downHandler`
+    key.downHandler = event => {
+        if (event.keyCode === key.code) {
+        if (key.isUp && key.press) key.press();
+        key.isDown = true;
+        key.isUp = false;
+        }
+        event.preventDefault();
+    };
+
+    //The `upHandler`
+    key.upHandler = event => {
+        if (event.keyCode === key.code) {
+        if (key.isDown && key.release) key.release();
+        key.isDown = false;
+        key.isUp = true;
+        }
+        event.preventDefault();
+    };
+
+    //Attach event listeners
+    window.addEventListener(
+        "keydown", key.downHandler.bind(key), false
+    );
+    window.addEventListener(
+        "keyup", key.upHandler.bind(key), false
+    );
+    return key;
+    }
+
+function hitTestRectangle(r1, r2) {
+
+    //Define the variables we'll need to calculate
+    let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+
+    //hit will determine whether there's a collision
+    hit = false;
+
+    //Find the center points of each sprite
+    r1.centerX = r1.x + r1.width / 2;
+    r1.centerY = r1.y + r1.height / 2;
+    r2.centerX = r2.x + r2.width / 2;
+    r2.centerY = r2.y + r2.height / 2;
+
+    //Find the half-widths and half-heights of each sprite
+    r1.halfWidth = r1.width / 2;
+    r1.halfHeight = r1.height / 2;
+    r2.halfWidth = r2.width / 2;
+    r2.halfHeight = r2.height / 2;
+
+    //Calculate the distance vector between the sprites
+    vx = r1.centerX - r2.centerX;
+    vy = r1.centerY - r2.centerY;
+
+    //Figure out the combined half-widths and half-heights
+    combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+    combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+
+    //Check for a collision on the x axis
+    if (Math.abs(vx) < combinedHalfWidths) {
+
+    //A collision might be occuring. Check for a collision on the y axis
+    if (Math.abs(vy) < combinedHalfHeights) {
+
+        //There's definitely a collision happening
+        hit = true;
+    } else {
+
+        //There's no collision on the y axis
+        hit = false;
+    }
+    } else {
+
+    //There's no collision on the x axis
+    hit = false;
+    }
+
+    //`hit` will be either `true` or `false`
+    return hit;
+};
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1.0, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div class = "start">
+                <input type="button" onClick="window.location.reload()" value="Restart The Game"></div>
+<script src="pixi.min.js"></script>
+<script>
+
+//create a pixi application
+let app = new PIXI.Application({
+    width:1280,
+    height:800,
+    antialiasing:true,
+    transparent:false,
+    resolution: 1
+});
+// create the root of the scene graph
+//var stage = new PIXI.Container();
+// add the canvas 
+document.body.appendChild(app.view);
+//loader
+PIXI.loader
+    .add([
+        "images/cat.png",
+        "images/door.png",
+        "images/treasure.png",
+    ])
+       .load(setup);
+
+let times = 0;
+function setup(){
+    niddle = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+    niddle.y = app.screen.height / 2;
+    niddle.x = app.screen.width / 2;
+    niddle.anchor.x=0.5;
+       niddle.anchor.y=0.5;
+    app.stage.addChild(niddle);
+    
+    Click();
+}
+
+function Click(){
+    //set the keyboard
+    let up = keyboard(13);
+    //random direction of moving
+    let x ;
+    let y ;
+     up.press = () => {
+        if(times <= 6){
+        x = Math.random() < 0.5 ? -1 : 1;
+         y = Math.random() < 0.5 ? -1 : 1;
+       niddle.scale.x *= 1+Math.random(-1,1)*0.3;
+       niddle.scale.y *= 1+Math.random(-1,1)*0.3;
+       niddle.rotation = Math.random(-0.5,0.5);
+        niddle.x += x*30;
+        niddle.y += y*30;
+        times ++;
+       
+        //if the click time is larger than 6 then back to origion
+    }if(times > 6){
+        niddle.y = app.screen.height / 2;
+        niddle.x = app.screen.width / 2;
+        niddle.scale.x = 1;
+        niddle.scale.y = 1;
+        times = 0;}}
+
+}
+
+function keyboard(keyCode) {
+    let key = {};
+    key.code = keyCode;
+    key.isDown = false;
+    key.isUp = true;
+    key.press = undefined;
+    key.release = undefined;
+    //The `downHandler`
+    key.downHandler = event => {
+        if (event.keyCode === key.code) {
+        if (key.isUp && key.press) key.press();
+        key.isDown = true;
+        key.isUp = false;
+        }
+        event.preventDefault();
+    };
+
+    //The `upHandler`
+    key.upHandler = event => {
+        if (event.keyCode === key.code) {
+        if (key.isDown && key.release) key.release();
+        key.isDown = false;
+        key.isUp = true;
+        }
+        event.preventDefault();
+    };
+
+    //Attach event listeners
+    window.addEventListener(
+        "keydown", key.downHandler.bind(key), false
+    );
+    window.addEventListener(
+        "keyup", key.upHandler.bind(key), false
+    );
+    return key;
+    }
+</script>
+
+
+
+</body>
+</html>

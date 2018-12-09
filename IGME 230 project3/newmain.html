@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 3 Jiahao Chen</title>
+    <link rel="stylesheet" href="newmain.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <header>
+        <h1>Project 3</h1>
+    </header>
+
+    <nav>
+        <div class="menubox">
+            <p class="menuitem">Menu</p>
+            <ul class="submenu">
+                <li><a href="#" onclick="goto('index.html')">game1</a></li>
+                <li><a href="#" onclick="goto('index2.html')">game2</a></li>
+                <li><a href="#" onclick="goto('index3.html')">game3</a></li>
+               </ul>
+        </div>
+
+            </nav>
+
+
+    <iframe src="index.html" id="game">
+
+    </iframe>
+
+
+    <aside id="myDiv">
+
+
+    </aside>
+
+    <footer>
+        <p>Thank You</p>
+    </footer>
+</div>
+
+
+<script>
+$(".menuitem").ready(function () {
+    $(".submenu").hide();
+    //$('#multiple').show();
+    $(".menuitem").click(function () {
+        // $('.group').hide();
+        $(this).next(".submenu").slideToggle("slow");
+        //$('#'+$(this).val()).show();
+    })
+});
+
+$(document).ready(function(){
+    $("#game").attr('src','');
+
+    htmlobj =$.ajax({url:'help.txt',async:false});
+
+    var temp=htmlobj.responseText;
+
+    $("#myDiv").html(htmlobj.responseText);
+});
+
+function goto(str)
+{
+    $("#game").attr('src',str);
+
+    htmlobj =$.ajax({url:str.replace('html','txt'),async:false});
+
+    var temp=htmlobj.responseText;
+
+    $("#myDiv").html(htmlobj.responseText);
+}
+
+function restart()
+{
+    document.getElementById('game').contentWindow.location.reload(true);
+}
+</script>
+</body>
+
+</html>

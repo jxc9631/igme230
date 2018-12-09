@@ -1,0 +1,1 @@
+Use "up down left right" to control you snake to eat the food!

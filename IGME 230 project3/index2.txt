@@ -1,0 +1,2 @@
+Press Enter to random the position and size and rotation of the Cat!
+(more than 6 random times will back to the start point! Challenge your friend to see who's cat can be the largest!)
